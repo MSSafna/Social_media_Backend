@@ -67,8 +67,8 @@ module.exports={
             // user.refreshToken = refreshToken
             // user.save()
             // res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 })
-              res.cookie('jwt',accessToken)
-            return res.json({ message: 'userLogged', loggedIn: true })
+            
+            return res.json({ message: 'userLogged', loggedIn: true ,accessToken})
         } catch (err) {
             console.log(err);
             res.status(500).json(err)

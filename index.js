@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 dotenv.config();
-mongoose.connect(process.env.MONGO_URL,{useNewUrlParser:true,useUnifiedTopology:true}, () => {
+mongoose.connect(process.env.MONGO_URL,{useNewUrlParser:true,useUnifiedTopology:true}).then(() => {
   console.log('connected to mongo')
 })
 
@@ -30,11 +30,18 @@ app.use(express.json())
 app.use(helmet())
 
 app.use(morgan('common'))
+
 app.use(cors({
   origin:["http://localhost:3000"],
   method:["GET","POST"],
   credentials:true
 }))
+
+// app.use(cors({
+//   origin:["https://beamish-crisp-5bac2b.netlify.app"],
+//   method:["GET","POST"],
+//   credentials:true
+// }))
 
 app.use('/api/user', userRoute)
 app.use('/api/posts', userPost)
