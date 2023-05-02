@@ -31,17 +31,17 @@ app.use(helmet())
 
 app.use(morgan('common'))
 
+// app.use(cors({
+//   origin:["http://localhost:3000","happyhello.online"],
+//   method:["GET","POST","PUT","PATCH","DELETE"],
+//   credentials:true
+// }))
+
 app.use(cors({
-  origin:["http://localhost:3000","happyhello.online"],
+  origin:["https://beamish-crisp-5bac2b.netlify.app"],
   method:["GET","POST","PUT","PATCH","DELETE"],
   credentials:true
 }))
-
-// app.use(cors({
-//   origin:["https://beamish-crisp-5bac2b.netlify.app"],
-//   method:["GET","POST"],
-//   credentials:true
-// }))
 
 app.use('/api/user', userRoute)
 app.use('/api/posts', userPost)
