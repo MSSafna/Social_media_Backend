@@ -32,8 +32,8 @@ app.use(helmet())
 app.use(morgan('common'))
 
 app.use(cors({
-  origin:["http://localhost:3000"],
-  method:["GET","POST"],
+  origin:["http://localhost:3000","happyhello.online"],
+  method:["GET","POST","PUT","PATCH","DELETE"],
   credentials:true
 }))
 
