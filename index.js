@@ -38,7 +38,7 @@ app.use(morgan('common'))
 // }))
 
 app.use(cors({
-  origin:["https://beamish-crisp-5bac2b.netlify.app"],
+  origin:["https://tourmaline-malasada-d41c28.netlify.app"],
   method:["GET","POST","PUT","PATCH","DELETE"],
   credentials:true
 }))

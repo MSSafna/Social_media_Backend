@@ -395,6 +395,7 @@ module.exports = {
       }
     ]
   }).sort('-createdAt').limit(5) 
+  console.log(otherUsers,'otherUSer');
    res.status(200).json(otherUsers)
   },
 
