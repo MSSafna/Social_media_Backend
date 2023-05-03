@@ -379,8 +379,7 @@ module.exports = {
   },
 
   //............................................................................getSuggestions
-
-  getSUggestions:async(req,res)=>{
+getSUggestions:async(req,res)=>{
    const userDetails=await User.findById(req.params.id)
   const otherUsers=await User.find({
     $and:[

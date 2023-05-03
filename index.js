@@ -38,7 +38,7 @@ app.use(morgan('common'))
 // }))
 
 app.use(cors({
-  origin:["https://tourmaline-malasada-d41c28.netlify.app"],
+  origin:["https://main.d3repsbxlr33qf.amplifyapp.com"],
   method:["GET","POST","PUT","PATCH","DELETE"],
   credentials:true
 }))
