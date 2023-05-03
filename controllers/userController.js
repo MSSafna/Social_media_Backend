@@ -42,7 +42,7 @@ module.exports = {
   //....................................................................postPost....................
   postPost: async (req, res) => {
     const { message, userId } = req.body;
-    const user = await ser.findById(userId)
+    const user = await User.findById(userId)
     let imageUrl=[]
     try {
       if (req.files) {
@@ -401,8 +401,9 @@ module.exports = {
   //................................................................................editPost
   editPost:async(req,res)=>{
     try{
-      console.log(req.body);
+      console.log(req.body,'bodyyy');
       const{message,postId}=req.body
+      console.log(req.files);
       const data={}
      if(req.file){
       const file = req.file.path;
@@ -427,16 +428,18 @@ module.exports = {
   //...................................................follow User
   followUser:async(req,res)=>{
     try{
+      console.log(req.params.id);
       if (req.body.userId !== req.params.id) {
         try {
-          const user = await User.findById(req.params.id)
+          const user = await User.findOne({_id : req.params.id})
           const currentUser = await User.findById(req.body.userId)
-          if (!user.followers.includes(req.body.userId)) {
+          console.log(user,'user');
+          if (!user.followers.includes(req.body.userId) ) {
             await user.updateOne({ $push: { followers: req.body.userId } })
             await currentUser.updateOne({ $push: { followings: req.params.id } }) 
             const newNotification =new Notification({
-              senderName:currentUser.username,
-              receiverId:req.params.id,
+              senderName:currentUser,
+              receiverId:user,
               message:'started following you'
             })
             newNotification.save()
@@ -463,16 +466,13 @@ module.exports = {
         try {
           const user = await User.findById(req.params.id)
           const currentUser = await User.findById(req.body.userId)
-          if (user.followers.includes(req.body.userId)) {
-            await User.updateOne({ $pull: { followers: req.body.userId } })
+            await user.updateOne({ $pull: { followers: req.body.userId } })
             await currentUser.updateOne({ $pull: { followings: req.params.id } })
             const result = await Notification.updateOne({userId:req.params.id},{$pull:{followers:req.body.userId}})
             console.log(result,'resultt');
             
             return res.status(200).json('user has unfollow')
-          } else {
-            res.status(403).json('you dont follow this user')
-          }
+          
         } catch (err) {
           return res.status(403).json(err)
         }
@@ -496,7 +496,7 @@ module.exports = {
           if(req.body.userId != post.userId){
            const newNotification = new Notification({
             postId:post._id,
-            senderName:user.username,
+            senderName:user,
             receiverId:post.userId,
             message:'liked your post'
            })
@@ -572,23 +572,12 @@ module.exports = {
 
   //..................................................getNotifications
   getNotifications: async (req, res) => {
-    console.log('reschess');
-    let response = {};
     try {
-      const userNotification = await Notification.findOne({userId:req.body.userId});
-      console.log(userNotification);
-      // if(userNotification){
-      // const respone = Promise.all(userNotification.followers.map(async(userId) => {
-      //    const userDetails = await User.findById(userId)
-      //      return userDetails.username
-      // }))
-      // response[userName]= respone
-      // console.log(response);
-      // }
-      res.json(response); // Send a response back to the client
-    } catch(err) {
-      console.log(err);
-      res.status(500).json(err); // Send an error response back to the client
+     const userNotification = await Notification.find({receiverId:req.params.userId})
+     console.log(userNotification,'userNotification');
+     res.status(200).json(userNotification)
+    }catch(err){
+      res.status(500).json(err)
     }
   }
   

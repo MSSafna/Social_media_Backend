@@ -33,7 +33,7 @@ app.use(morgan('common'))
 
 // app.use(cors({
 //   origin:["http://localhost:3000","happyhello.online"],
-//   method:["GET","POST","PUT","PATCH","DELETE"],
+//   method:["GET","POST"],
 //   credentials:true
 // }))
 

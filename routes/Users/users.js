@@ -64,7 +64,7 @@ router.get('/friends/:userId',userController.getFriends)
 router.put('/removeFollower/:userId',userController.removeFollower)
 
 //...................................................getNotification
-router.get('/getnotification',userController.getNotifications)
+router.get('/getnotification/:userId',userController.getNotifications)
 
 
 

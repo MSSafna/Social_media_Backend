@@ -6,7 +6,7 @@ const NotificationSchema = new mongoose.Schema({
     default:null
    },
     senderName:{
-    type:String,
+    type:Object,
     require:true
    },
    receiverId:{
